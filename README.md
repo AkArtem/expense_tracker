@@ -14,8 +14,8 @@ A simple command-line expense tracker written in Python.
 
 expense_tracker/
 ├── data/
-│ ├── expenses.csv # Stores expense records (auto-created)
-│ └── backup.json # Backup file in JSON format
+│   ├── expenses.csv # Stores expense records (auto-created)
+│   └── backup.json # Backup file in JSON format
 ├── expense_tracker.py # Main CLI script
 ├── utils.py # Helper functions for file operations and display
 ├── README.md # This file
