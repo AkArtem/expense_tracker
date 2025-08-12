@@ -25,7 +25,7 @@ expense_tracker/
 
 1. Clone the repository:
 
-git clone https://github.com/ArxAk/expense_tracker.git  
+git clone https://github.com/AkArtem/expense_tracker.git  
 cd expense_tracker
 
 2. Install dependencies:
