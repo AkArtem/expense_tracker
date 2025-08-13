@@ -5,6 +5,9 @@ from utils import read_expenses, write_expense, show_expenses, show_statistics
 DATA_FILE = "data/expenses.csv"
 BACKUP_FILE = "data/backup.json"
 
+ALLOWED_CATEGORIES = ["food", "transport", "entertainment", "utilities",
+                      "health", "shopping", "education", "travel", "other"]
+
 def main():
     while True:
         print("\n=== Expense Tracker ===")
@@ -35,7 +38,14 @@ def main():
         
 def add_expense():
     date = datetime.now().strftime("%Y-%m-%d")
-    category = input("Please input category: ").strip()
+    
+    category = input(f"Please input category ({', '.join(ALLOWED_CATEGORIES)}): ").strip()
+    if not category:
+        print("Category cannot be empty.")
+        return
+    if category not in ALLOWED_CATEGORIES:
+        print(f"Invalid category. Allowed: {', '.join(ALLOWED_CATEGORIES)}")
+        return
     
     try:
         amount = float(input("Please input amount: ").strip())
