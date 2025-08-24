@@ -10,17 +10,22 @@ def read_expenses(filename):
         return []
 
 def write_expense(filename, data):
-    with open(filename, "a", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerow(data)
-    print("Expense added!")
+    try:
+        with open(filename, "a", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(data)
+        print("Expense added!")
+    except Exception as e:
+        print(f"Error writing expense: {e}")
+        raise
     
 def show_expenses(expenses):
     if not expenses:
-        print("You have no expenses")
+        print("No expenses found.")
         return
     headers = ["Date", "Category", "Amount", "Comment"]
     print(tabulate(expenses, headers=headers, tablefmt="grid"))
+    print(f"\nTotal expenses shown: {len(expenses)}")
 
 def show_statistics(expenses):
     if not expenses:
@@ -38,15 +43,18 @@ def show_statistics(expenses):
         total += amount
         by_category[category] += amount
 
-    print(f"\nTotal expenses: {total:.2f}")
+    print(f"\n=== EXPENSE STATISTICS ===")
+    print(f"Total expenses: ${total:.2f}")
+    print(f"Number of transactions: {len(expenses)}")
 
-    print("\nExpenses by category:")
-    for categoryy, amountt  in by_category.items():
-        print(f"  {categoryy}: {amountt:.2f}")
+    print(f"\n=== EXPENSES BY CATEGORY ===")
+    for category, amount in by_category.items():
+        percentage = (amount / total) * 100
+        print(f"  {category.capitalize()}: ${amount:.2f} ({percentage:.1f}%)")
 
     top_expenses = sorted(expenses, key=lambda x: float(x[2]), reverse=True)[:3]
-    print("\nTop 3 biggest expenses:")
-    for el in top_expenses:
-        print(f"  {el[0]} | {el[1]} | {el[2]} | {el[3]}")
+    print(f"\n=== TOP 3 BIGGEST EXPENSES ===")
+    for i, expense in enumerate(top_expenses, 1):
+        print(f"  {i}. {expense[0]} | {expense[1].capitalize()} | ${expense[2]} | {expense[3]}")
 
     
